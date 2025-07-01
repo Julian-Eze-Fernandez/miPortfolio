@@ -1,3 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.volSC{
+  font-family: 'VollkornSC';
+}
+
+.inter{
+  font-family: 'Inter';
+}
+
+.julius{
+  font-family: 'Julius';
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: 'VollkornSC';
+  src: url('../src/assets/VollkornSC-Regular.ttf');
+
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../src/assets/Inter-VariableFont_opsz\,wght.ttf')
+}
+
+@font-face {
+  font-family: 'Julius';
+  src: url('../src/assets/JuliusSansOne-Regular.ttf')
+}
