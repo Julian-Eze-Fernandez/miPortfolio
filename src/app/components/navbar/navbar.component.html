@@ -1,13 +1,46 @@
 <header class="bg-main text-white shadow-md fixed w-full z-50">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
     <a href="#home" class="text-2xl font-bold text-primary">Julian.Dev</a>
+
     <nav class="hidden md:flex gap-6 font-medium">
       <a href="#home" class="hover:text-primary">Inicio</a>
-      <a href="#about" class="hover:text-primary">Sobre Mi</a>
+      <a href="#about" class="hover:text-primary">Sobre Mi</a>
       <a href="#projects" class="hover:text-primary">Proyectos</a>
       <a href="#contact" class="hover:text-primary">Contactame</a>
     </nav>
+
+    <button (click)="toggleSidebar()" class="md:hidden text-white focus:outline-none">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
   </div>
 </header>
 
+<div
+  class="fixed top-0 left-0 h-full w-64 bg-main shadow-lg transition-transform duration-300 ease-in-out
+         md:hidden z-50"
+  [ngClass]="{ 'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen }"
+>
+
+  <div class="flex items-center justify-between p-6 border-b border-primary">
+    <span class="text-xl font-bold text-primary">Menú</span>
+    <button (click)="toggleSidebar()" class="text-white text-2xl leading-none">×</button>
+  </div>
+
+  <nav class="flex flex-col gap-5 p-6 font-medium text-white">
+    <a href="#home"     (click)="toggleSidebar()" class="hover:text-primary">Inicio</a>
+    <a href="#about"    (click)="toggleSidebar()" class="hover:text-primary">Sobre Mi</a>
+    <a href="#projects" (click)="toggleSidebar()" class="hover:text-primary">Proyectos</a>
+    <a href="#contact"  (click)="toggleSidebar()" class="hover:text-primary">Contactame</a>
+  </nav>
+</div>
+
+<div
+  class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden"
+  [ngClass]="{ 'opacity-100 pointer-events-auto': sidebarOpen, 'opacity-0 pointer-events-none': !sidebarOpen }"
+  (click)="toggleSidebar()">
+</div>
 

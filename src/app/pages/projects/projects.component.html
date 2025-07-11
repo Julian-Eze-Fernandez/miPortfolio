@@ -1,12 +1,84 @@
-<section id="projects" class="bg-main py-16 px-6 pt-28 text-white">
+<section id="projects" class="bg-main py-16 px-6 pt-28 text-white relative">
   <div class="max-w-7xl mx-auto">
     <h3 class="text-3xl font-bold text-center text-primary mb-12 underline">Proyectos</h3>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div *ngFor="let p of [1, 2, 3]" class="bg-card rounded-xl shadow-md p-4 hover:shadow-lg transition">
-        <div class="w-full h-48 bg-gray-600 rounded mb-4"></div>
-        <h4 class="text-xl font-semibold text-primary">Lucybell</h4>
-        <p>Me destaco por ser autodidacta, responsable y con capacidad para adaptarme a nuevos entornos.</p>
+
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div *ngFor="let p of projects"
+           class="group bg-card rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition duration-300 relative">
+
+        <div class="relative h-48 overflow-hidden">
+          <img [src]="p.images[0]"
+               alt="{{ p.title }}"
+               class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-60 transition duration-300"></div>
+        </div>
+
+        <div class="p-5 space-y-2">
+          <h4 class="text-xl font-bold text-primary">{{ p.title }}</h4>
+          <p class="text-sm">{{ p.description }}</p>
+
+          <div class="flex flex-wrap gap-2 mt-2">
+            <img *ngFor="let tech of p.technologies"
+                 [src]="'assets/icons/' + tech + '.svg'"
+                 class="w-6 h-6" [alt]="tech">
+          </div>
+
+          <div class="mt-4 flex justify-between items-center">
+            <a *ngIf="p.linkGit" [href]="p.linkGit" target="_blank"
+               class="text-secondary hover:underline font-semibold">Ver repositorio</a>
+
+            <button (click)="openModal(p)"
+              class="text-sm bg-primary text-black px-3 py-1 rounded hover:bg-yellow-400 transition">
+              Ver más
+            </button>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedProject"
+       class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+    <div class="bg-card rounded-xl p-6 max-w-lg w-full relative text-white">
+
+      <button (click)="closeModal()"
+        class="absolute top-2 right-4 text-xl font-bold text-white hover:text-primary">
+        &times;
+      </button>
+
+      <h4 class="text-2xl font-bold mb-2 text-primary">{{ selectedProject.title }}</h4>
+
+      <img [src]="selectedProject.images[selectedImageIndex]"
+           alt="imagen de {{ selectedProject.title }}"
+           class="w-full h-60 object-cover rounded mb-4" />
+
+      <div class="flex justify-between items-center mb-4 text-sm">
+        <button (click)="prevImage()" [disabled]="selectedImageIndex === 0"
+                class="text-white hover:text-primary disabled:opacity-30">
+          ← Anterior
+        </button>
+        <span class="text-gray-400">
+          Imagen {{ selectedImageIndex + 1 }} de {{ selectedProject.images.length }}
+        </span>
+        <button (click)="nextImage()"
+                [disabled]="selectedImageIndex === selectedProject.images.length - 1"
+                class="text-white hover:text-primary disabled:opacity-30">
+          Siguiente →
+        </button>
+      </div>
+
+      <p class="mb-4">{{ selectedProject.moreInfo }}</p>
+
+      <div class="flex flex-wrap gap-3 mb-4">
+        <img *ngFor="let tech of selectedProject.technologies"
+             [src]="'assets/icons/' + tech + '.svg'"
+             class="w-7 h-7" [alt]="tech">
+      </div>
+
+      <a *ngIf="selectedProject.link" [href]="selectedProject.link" target="_blank"
+         class="inline-block text-secondary underline font-medium">
+        Ir al proyecto →
+      </a>
     </div>
   </div>
 </section>
